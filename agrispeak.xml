@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<vxml version="2.1">
+ <form id="intro">
+  <block>
+   <prompt>
+    You've reached AgriSpeak, a service for rain prediction in the Sahel.
+   </prompt>
+   <goto next="#main"/>
+  </block>
+ </form>
+
+ <menu id="main" dtmf="true">
+  <prompt>
+   For daily forecast, press 1. For information on yesterday's rainfall, press 2. For 	 
+   estimated duration of rainfall, press 3. For reporting feedback, press 4.
+  </prompt>
+  <choice next="#form1"/>
+  <choice next="#form2"/>
+  <choice next="#form3"/>
+  <choice next="#form4"/>
+ </menu>
+
+ <form id="form1">
+  <block>
+   <prompt>
+    Light rain expected today.
+   </prompt>
+   <goto next="#main"/>
+  </block>
+ </form>
+
+ <form id="form2">
+  <block>
+   <prompt>
+    Rainfall yesterday: Heavy.
+   </prompt>
+   <goto next="#main"/>
+  </block>
+ </form>
+
+ <form id="form3">
+  <block>
+   <prompt>
+    Estimated duration of rainfall: 2 days.
+   </prompt>
+   <goto next="#main"/>
+  </block>
+ </form>
+
+ <form id="form4">
+  <block>
+   <prompt> please state your feedback. </prompt>
+   <break time="4000ms"/>
+   <prompt> Thank you. </prompt>
+   <goto next="#main"/>
+  </block>
+ </form>
+
+</vxml>
