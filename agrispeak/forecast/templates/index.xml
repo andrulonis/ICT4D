@@ -27,7 +27,7 @@
     <form id="form1">
         <block>
             <prompt>
-                {% translate "Rainfall expected today" %}: {{ rainfall_intensity_today }}.
+                {% translate "Rainfall expected in the next 24 hours" %}: {{ rainfall_intensity_today }}.
             </prompt>
             <goto next="#main"/>
         </block>

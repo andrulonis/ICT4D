@@ -13,20 +13,21 @@ from pprint import pprint
 WEATHER_API_URL='http://api.weatherapi.com/v1/forecast.json'
 LOCATION = 'Burkina Faso'
 
-# https://www.researchgate.net/figure/Rain-classification-and-precipitation-intensity-range_tbl1_340317722
-HOURLY_PRECIPITATION_INTENSITY_THRESHOLDS = {
-    _('None'): 0.5,
-    _('Weak'): 2,
-    _('Moderate'): 6,
-    _('Heavy'): 10,
-    _('Very heavy'): 18,
-    _('Extreme'): 30,
-    _('Very extreme'): math.inf
-}
 
 def get_precipitation_intensity(hourlyprecip_next_24_hrs):
+    # https://www.researchgate.net/figure/Rain-classification-and-precipitation-intensity-range_tbl1_340317722
+    HOURLY_PRECIPITATION_INTENSITY_THRESHOLDS = {
+        _('None'): 0.5,
+        _('Weak'): 2,
+        _('Moderate'): 6,
+        _('Heavy'): 10,
+        _('Very heavy'): 18,
+        _('Extreme'): 30,
+        _('Very extreme'): math.inf
+    }
+
     if not any(hourlyprecip_next_24_hrs):
-        return 'None'
+        return _('None')
 
     for intensity, threshold in HOURLY_PRECIPITATION_INTENSITY_THRESHOLDS.items():
         if max(hourlyprecip_next_24_hrs) < threshold:

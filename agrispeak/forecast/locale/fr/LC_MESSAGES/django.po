@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-22 23:29+0000\n"
+"POT-Creation-Date: 2024-04-22 23:45+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,11 +20,14 @@ msgstr ""
 
 #: forecast/templates/api_fail.xml:7
 msgid "Error retrieving weather information, please try again later."
-msgstr "Erreur lors de la récupération des informations météorologiques, veuillez réessayer ultérieurement."
+msgstr ""
+"Erreur lors de la récupération des informations météorologiques, veuillez "
+"réessayer ultérieurement."
 
 #: forecast/templates/index.xml:8
 msgid "You've reached AgriSpeak, a service for rain prediction in the Sahel."
-msgstr "Vous avez atteint AgriSpeak, un service de prédiction de pluie dans le Sahel"
+msgstr ""
+"Vous avez atteint AgriSpeak, un service de prédiction de pluie dans le Sahel"
 
 #: forecast/templates/index.xml:16
 msgid "For daily forecast, press 1."
@@ -43,37 +46,37 @@ msgid "For reporting feedback, press 4."
 msgstr "Pour soumettre vos commentaires, appuyez sur 4."
 
 #: forecast/templates/index.xml:30
-msgid "Rainfall expected today"
-msgstr "Précipitations prévues aujourd'hui"
+msgid "Rainfall expected in the next 24 hours"
+msgstr "Précipitations prévues dans les prochaines 24 heures"
 
 #: forecast/templates/index.xml:39
 msgid "Rainfall yesterday"
 msgstr "Précipitations hier"
 
-#: forecast/views.py:17
+#: forecast/views.py:20 forecast/views.py:30
 msgid "None"
 msgstr "Aucune"
 
-#: forecast/views.py:18
+#: forecast/views.py:21
 msgid "Weak"
 msgstr "Faible"
 
-#: forecast/views.py:19
+#: forecast/views.py:22
 msgid "Moderate"
 msgstr "Modérée"
 
-#: forecast/views.py:20
+#: forecast/views.py:23
 msgid "Heavy"
 msgstr "Forte"
 
-#: forecast/views.py:21
+#: forecast/views.py:24
 msgid "Very heavy"
 msgstr "Très forte"
 
-#: forecast/views.py:22
+#: forecast/views.py:25
 msgid "Extreme"
 msgstr "Extrême"
 
-#: forecast/views.py:23
+#: forecast/views.py:26
 msgid "Very extreme"
 msgstr "Très extrême"
