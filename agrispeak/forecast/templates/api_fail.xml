@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+{% load i18n %}
+<vxml version="2.1" xml:lang="{{ current_language }}-{{ current_language }}">
+    <form id="intro">
+        <block>
+            <prompt>
+                {% translate "Error retrieving weather information, please try again later." %}
+            </prompt>
+        </block>
+    </form>
+</vxml>

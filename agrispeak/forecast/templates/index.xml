@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<vxml version="2.1">
+{% load i18n %}
+{% get_current_language as current_language %}
+<vxml version="2.1" xml:lang="{{ current_language }}-{{ current_language }}">
     <form id="intro">
         <block>
             <prompt>
-                You've reached AgriSpeak, a service for rain prediction in the Sahel.
+                {% translate "You've reached AgriSpeak, a service for rain prediction in the Sahel." %}
             </prompt>
             <goto next="#main"/>
         </block>
@@ -11,10 +13,10 @@
 
     <menu id="main" dtmf="true">
         <prompt>
-            For daily forecast, press 1.
-            For information on yesterday's rainfall, press 2.
-            For estimated duration of rainfall, press 3.
-            For reporting feedback, press 4.
+            {% translate "For daily forecast, press 1." %}
+            {% translate "For information on yesterday's rainfall, press 2." %}
+            {% translate "For estimated duration of rainfall, press 3." %}
+            {% translate "For reporting feedback, press 4." %}
         </prompt>
         <choice next="#form1"/>
         <choice next="#form2"/>
@@ -25,7 +27,7 @@
     <form id="form1">
         <block>
             <prompt>
-                Light rain expected today.
+                {% translate "Rainfall expected today" %}: {{ rainfall_intensity_today }}.
             </prompt>
             <goto next="#main"/>
         </block>
@@ -34,7 +36,7 @@
     <form id="form2">
         <block>
             <prompt>
-                Rainfall yesterday: Heavy.
+                {% translate "Rainfall yesterday" %}: {{ rainfall_intensity_yesterday }}.
             </prompt>
             <goto next="#main"/>
         </block>

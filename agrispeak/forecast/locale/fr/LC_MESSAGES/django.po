@@ -1,0 +1,79 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-04-22 23:29+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: forecast/templates/api_fail.xml:7
+msgid "Error retrieving weather information, please try again later."
+msgstr "Erreur lors de la récupération des informations météorologiques, veuillez réessayer ultérieurement."
+
+#: forecast/templates/index.xml:8
+msgid "You've reached AgriSpeak, a service for rain prediction in the Sahel."
+msgstr "Vous avez atteint AgriSpeak, un service de prédiction de pluie dans le Sahel"
+
+#: forecast/templates/index.xml:16
+msgid "For daily forecast, press 1."
+msgstr "Pour les prévisions quotidiennes, appuyez sur 1."
+
+#: forecast/templates/index.xml:17
+msgid "For information on yesterday's rainfall, press 2."
+msgstr "Pour des informations sur les pluies d'hier, appuyez sur 2."
+
+#: forecast/templates/index.xml:18
+msgid "For estimated duration of rainfall, press 3."
+msgstr "Pour la durée estimée des pluies, appuyez sur 3."
+
+#: forecast/templates/index.xml:19
+msgid "For reporting feedback, press 4."
+msgstr "Pour soumettre vos commentaires, appuyez sur 4."
+
+#: forecast/templates/index.xml:30
+msgid "Rainfall expected today"
+msgstr "Précipitations prévues aujourd'hui"
+
+#: forecast/templates/index.xml:39
+msgid "Rainfall yesterday"
+msgstr "Précipitations hier"
+
+#: forecast/views.py:17
+msgid "None"
+msgstr "Aucune"
+
+#: forecast/views.py:18
+msgid "Weak"
+msgstr "Faible"
+
+#: forecast/views.py:19
+msgid "Moderate"
+msgstr "Modérée"
+
+#: forecast/views.py:20
+msgid "Heavy"
+msgstr "Forte"
+
+#: forecast/views.py:21
+msgid "Very heavy"
+msgstr "Très forte"
+
+#: forecast/views.py:22
+msgid "Extreme"
+msgstr "Extrême"
+
+#: forecast/views.py:23
+msgid "Very extreme"
+msgstr "Très extrême"
