@@ -44,26 +44,26 @@ def index(request):
 
     if not weather_api_request.ok:
         return render(request, 'error.xml', content_type='text/xml'), 500
-    else:
-        weather_api_data = weather_api_request.json()
-        forecast_by_day  = weather_api_data['forecast']['forecastday']
+
+    weather_api_data = weather_api_request.json()
+    forecast_by_day  = weather_api_data['forecast']['forecastday']
 
 
-        precipation_data = [{
-                'date': day['date'],
-                'totalprecip_mm': day['day']['totalprecip_mm'],
-                'hourlyprecip_mm': [hour['precip_mm'] for hour in day['hour']],
-                'hourly_chance_of_rain': [hour['chance_of_rain'] for hour in day['hour']],
-                'will_it_rain': day['day']['daily_will_it_rain'],
-            } for day in forecast_by_day]
-        pprint(precipation_data)
+    precipation_data = [{
+            'date': day['date'],
+            'totalprecip_mm': day['day']['totalprecip_mm'],
+            'hourlyprecip_mm': [hour['precip_mm'] for hour in day['hour']],
+            'hourly_chance_of_rain': [hour['chance_of_rain'] for hour in day['hour']],
+            'will_it_rain': day['day']['daily_will_it_rain'],
+        } for day in forecast_by_day]
+    pprint(precipation_data)
 
-        local_time = datetime.strptime(weather_api_data['location']['localtime'], '%Y-%m-%d %H:%M')
+    local_time = datetime.strptime(weather_api_data['location']['localtime'], '%Y-%m-%d %H:%M')
 
-        hourlyprecip_today, hourlyprecip_tomorrow = precipation_data[0]['hourlyprecip_mm'], precipation_data[1]['hourlyprecip_mm']
-        hourlyprecip_next_24_hrs = hourlyprecip_today[local_time.hour:] + hourlyprecip_tomorrow[:local_time.hour]
+    hourlyprecip_today, hourlyprecip_tomorrow = precipation_data[0]['hourlyprecip_mm'], precipation_data[1]['hourlyprecip_mm']
+    hourlyprecip_next_24_hrs = hourlyprecip_today[local_time.hour:] + hourlyprecip_tomorrow[:local_time.hour]
 
-        intensity_rating = get_precipitation_intensity(hourlyprecip_next_24_hrs)
+    intensity_rating = get_precipitation_intensity(hourlyprecip_next_24_hrs)
 
     return render(request, 'index.xml', {
         'rainfall_intensity_today': intensity_rating
