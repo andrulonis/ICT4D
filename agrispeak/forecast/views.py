@@ -40,7 +40,7 @@ def index(request):
         'lang': get_language(),
         'q': LOCATION,
         'days': 2,
-        })
+    })
 
     if not weather_api_request.ok:
         return render(request, 'error.xml', content_type='text/xml'), 500
