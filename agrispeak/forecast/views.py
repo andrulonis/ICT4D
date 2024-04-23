@@ -12,7 +12,7 @@ from pprint import pprint
 
 WEATHER_API_URL='http://api.weatherapi.com/v1/forecast.json'
 LOCATION = 'Burkina Faso'
-
+IMPLEMENTED_LANGUAGES = ['en', 'fr']
 
 def get_precipitation_intensity(hourlyprecip_next_24_hrs):
     # https://www.researchgate.net/figure/Rain-classification-and-precipitation-intensity-range_tbl1_340317722
@@ -35,6 +35,9 @@ def get_precipitation_intensity(hourlyprecip_next_24_hrs):
 
 
 def index(request):
+    if get_language() not in IMPLEMENTED_LANGUAGES:
+        return render(request, 'error.xml', content_type='text/xml', status=500)
+
     weather_api_request = requests.get(WEATHER_API_URL, params={
         'key': settings.WEATHER_API_KEY,
         'lang': get_language(),
@@ -43,11 +46,10 @@ def index(request):
     })
 
     if not weather_api_request.ok:
-        return render(request, 'error.xml', content_type='text/xml'), 500
+        return render(request, 'error.xml', content_type='text/xml', status=500)
 
     weather_api_data = weather_api_request.json()
     forecast_by_day  = weather_api_data['forecast']['forecastday']
-
 
     precipation_data = [{
             'date': day['date'],
@@ -56,7 +58,6 @@ def index(request):
             'hourly_chance_of_rain': [hour['chance_of_rain'] for hour in day['hour']],
             'will_it_rain': day['day']['daily_will_it_rain'],
         } for day in forecast_by_day]
-    pprint(precipation_data)
 
     local_time = datetime.strptime(weather_api_data['location']['localtime'], '%Y-%m-%d %H:%M')
 
