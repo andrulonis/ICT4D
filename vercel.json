@@ -1,7 +1,7 @@
 {
     "builds": [
         {
-            "src": "agrispeak/agrispeak/wsgi.py",
+            "src": "agrispeak/wsgi.py",
             "use": "@vercel/python",
             "config": { "maxLambdaSize": "15mb" }
         }
@@ -9,7 +9,7 @@
     "routes": [
         {
             "src": "/(.*)",
-            "dest": "agrispeak/agrispeak/wsgi.py"
+            "dest": "agrispeak/wsgi.py"
         }
     ]
 }
