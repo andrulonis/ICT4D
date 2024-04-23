@@ -40,7 +40,7 @@
     <form id="form2">
         <block>
             <prompt>
-                {% translate "Rainfall yesterday" %}: {{ rainfall_intensity_yesterday }}.
+                {% translate "Rainfall in the past 24 hours" %}: {{ rainfall_intensity_yesterday }}.
             </prompt>
             <goto next="#main"/>
         </block>

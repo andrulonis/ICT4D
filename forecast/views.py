@@ -6,11 +6,11 @@ from django.utils.translation import get_language
 from django.conf import settings
 
 import requests
-from datetime import datetime
+from datetime import datetime, timedelta
 import math
 from pprint import pprint
 
-WEATHER_API_URL='http://api.weatherapi.com/v1/forecast.json'
+WEATHER_API_BASE_URL='http://api.weatherapi.com/v1/'
 LOCATION = 'Burkina Faso'
 IMPLEMENTED_LANGUAGES = ['en', 'fr']
 
@@ -33,39 +33,83 @@ def get_precipitation_intensity(hourlyprecip_next_24_hrs):
         if max(hourlyprecip_next_24_hrs) < threshold:
             return intensity
 
+def get_hourly_rainfall(daily_data):
+    return daily_data[0]['hourlyprecip_mm']
 
-def index(request):
-    if get_language() not in IMPLEMENTED_LANGUAGES:
-        return render(request, 'error.xml', content_type='text/xml', status=500)
-
-    weather_api_request = requests.get(WEATHER_API_URL, params={
+def get_forecast_data():
+    weather_api_forecast_request = requests.get(WEATHER_API_BASE_URL + 'forecast.json', params={
         'key': settings.WEATHER_API_KEY,
         'lang': get_language(),
         'q': LOCATION,
-        'days': 2,
+        'days': 7,
     })
 
-    if not weather_api_request.ok:
-        return render(request, 'error.xml', content_type='text/xml', status=500)
+    if not weather_api_forecast_request.ok:
+        raise Exception('Failed to fetch weather data')
 
-    weather_api_data = weather_api_request.json()
-    forecast_by_day  = weather_api_data['forecast']['forecastday']
+    forecast_data = weather_api_forecast_request.json()
+    forecast_by_day  = forecast_data['forecast']['forecastday']
 
-    precipation_data = [{
+    local_time = datetime.strptime(forecast_data['location']['localtime'], '%Y-%m-%d %H:%M')
+
+    return local_time, [{
             'date': day['date'],
-            'totalprecip_mm': day['day']['totalprecip_mm'],
+            # 'totalprecip_mm': day['day']['totalprecip_mm'],
             'hourlyprecip_mm': [hour['precip_mm'] for hour in day['hour']],
-            'hourly_chance_of_rain': [hour['chance_of_rain'] for hour in day['hour']],
-            'will_it_rain': day['day']['daily_will_it_rain'],
+            # 'hourly_chance_of_rain': [hour['chance_of_rain'] for hour in day['hour']],
+            # 'will_it_rain': day['day']['daily_will_it_rain'],
+            # 'daily_code': day['day']['condition']['code'],
+            # 'hourly_code': [hour['condition']['code'] for hour in day['hour']],
+            # 'daily_text': day['day']['condition']['text'],
+            # 'hourly_text': [hour['condition']['text'] for hour in day['hour']]
         } for day in forecast_by_day]
 
-    local_time = datetime.strptime(weather_api_data['location']['localtime'], '%Y-%m-%d %H:%M')
+def get_rainfall_next_24hrs(local_time, precipation_forecast_data):
+    hourlyprecip_today, hourlyprecip_tomorrow = precipation_forecast_data[0]['hourlyprecip_mm'], precipation_forecast_data[1]['hourlyprecip_mm']
+    return hourlyprecip_today[local_time.hour:] + hourlyprecip_tomorrow[:local_time.hour]
 
-    hourlyprecip_today, hourlyprecip_tomorrow = precipation_data[0]['hourlyprecip_mm'], precipation_data[1]['hourlyprecip_mm']
-    hourlyprecip_next_24_hrs = hourlyprecip_today[local_time.hour:] + hourlyprecip_tomorrow[:local_time.hour]
+def get_history_data(local_time):
+    weather_api_history_request = requests.get(WEATHER_API_BASE_URL + 'history.json', params={
+        'key': settings.WEATHER_API_KEY,
+        'lang': get_language(),
+        'q': LOCATION,
+        'dt': (local_time - timedelta(days=1)).strftime('%Y-%m-%d'),
+    })
 
-    intensity_rating = get_precipitation_intensity(hourlyprecip_next_24_hrs)
+    if not weather_api_history_request.ok:
+        print(weather_api_history_request.json())
+        raise Exception('Failed to fetch weather data')
+
+    history_data = weather_api_history_request.json()
+
+    return [{
+        'date': history_data['forecast']['forecastday'][0]['date'],
+        'hourlyprecip_mm': [hour['precip_mm'] for hour in history_data['forecast']['forecastday'][0]['hour']]
+    }]
+
+def index(request):
+    if get_language() not in IMPLEMENTED_LANGUAGES:
+        return render(request, 'language_not_available.xml', content_type='text/xml', status=404)
+
+    try:
+        local_time, forecast_data = get_forecast_data()
+        history_data = get_history_data(local_time)
+        
+        # Previous 24 hours rainfall intensity
+        rainfall_today            = get_hourly_rainfall(forecast_data)
+        rainfall_yesterday        = get_hourly_rainfall(history_data)
+        rainfall_past_24hrs       = rainfall_yesterday[local_time.hour:] + rainfall_today[:local_time.hour]
+        history_intensity_rating  = get_precipitation_intensity(rainfall_past_24hrs)
+
+        # Next 24 hours rainfall intensity
+        rainfall_next_24hrs       = get_rainfall_next_24hrs(local_time, forecast_data)
+        forecast_intensity_rating = get_precipitation_intensity(rainfall_next_24hrs)
+
+        print(rainfall_past_24hrs, rainfall_next_24hrs)
+    except Exception as e:
+        return render(request, 'error.xml', content_type='text/xml', status=500)
 
     return render(request, 'index.xml', {
-        'rainfall_intensity_today': intensity_rating
+        'rainfall_intensity_today': forecast_intensity_rating,
+        'rainfall_intensity_yesterday': history_intensity_rating
     }, content_type='text/xml')

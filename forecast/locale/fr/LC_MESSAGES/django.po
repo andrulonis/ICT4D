@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-22 23:45+0000\n"
+"POT-Creation-Date: 2024-04-23 21:14+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,40 +18,44 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: forecast/templates/api_fail.xml:7
+#: forecast/templates/api_fail.xml:11
 msgid "Error retrieving weather information, please try again later."
 msgstr ""
 "Erreur lors de la récupération des informations météorologiques, veuillez "
 "réessayer ultérieurement."
 
-#: forecast/templates/index.xml:8
+#: forecast/templates/error.xml:7
+msgid "An internal server error occurred. Please try again later."
+msgstr "Une erreur interne du serveur s'est produite. Veuillez réessayer plus tard."
+
+#: forecast/templates/index.xml:12
 msgid "You've reached AgriSpeak, a service for rain prediction in the Sahel."
 msgstr ""
 "Vous avez atteint AgriSpeak, un service de prédiction de pluie dans le Sahel"
 
-#: forecast/templates/index.xml:16
+#: forecast/templates/index.xml:20
 msgid "For daily forecast, press 1."
 msgstr "Pour les prévisions quotidiennes, appuyez sur 1."
 
-#: forecast/templates/index.xml:17
+#: forecast/templates/index.xml:21
 msgid "For information on yesterday's rainfall, press 2."
 msgstr "Pour des informations sur les pluies d'hier, appuyez sur 2."
 
-#: forecast/templates/index.xml:18
+#: forecast/templates/index.xml:22
 msgid "For estimated duration of rainfall, press 3."
 msgstr "Pour la durée estimée des pluies, appuyez sur 3."
 
-#: forecast/templates/index.xml:19
+#: forecast/templates/index.xml:23
 msgid "For reporting feedback, press 4."
 msgstr "Pour soumettre vos commentaires, appuyez sur 4."
 
-#: forecast/templates/index.xml:30
+#: forecast/templates/index.xml:34
 msgid "Rainfall expected in the next 24 hours"
 msgstr "Précipitations prévues dans les prochaines 24 heures"
 
-#: forecast/templates/index.xml:39
-msgid "Rainfall yesterday"
-msgstr "Précipitations hier"
+#: forecast/templates/index.xml:43
+msgid "Rainfall in the past 24 hours"
+msgstr "Précipitations au cours des dernières 24 heures"
 
 #: forecast/views.py:20 forecast/views.py:30
 msgid "None"
