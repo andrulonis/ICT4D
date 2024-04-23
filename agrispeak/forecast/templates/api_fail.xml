@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 {% load i18n %}
-<vxml version="2.1" xml:lang="{{ voicexml_lang }}">
+{% if current_language == 'en' %}
+<vxml version="2.1">
+{% else %}
+<vxml version="2.1" xml:lang="{{ current_language }}-{{ current_language }}">
+{% endif %}
     <form id="intro">
         <block>
             <prompt>
