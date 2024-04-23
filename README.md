@@ -17,6 +17,14 @@ TODO: @Daanvduin
 
 ## Installation
 
+### One click Vercel deployment
+
+Click here to deploy with Vercel:
+
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fandrulonis%2FICT4D&env=WEATHER_API_KEY,SECRET_KEY&envDescription=WEATHER_API_KEY%20is%20your%20weatherapi.com%20API%20key.%20SECRET_KEY%20will%20be%20used%20for%20the%20Django%20secret%20key.%20It%20can%20be%20anything%2C%20if%20kept%20secret.&project-name=agrispeak&repository-name=agrispeak)
+
+### Manual
+
 First, create a virtual environment using the command below:
 
 ```sh
@@ -34,6 +42,10 @@ Install the required dependencies into the virtual environment:
 ```sh
 pip3 install -r requirements.txt
 ```
+
+## Environment variables
+
+The application requires multiple environment variables to be set in order to function properly. Make a copy of `.env.template` and name it `.env`. Add the required values where required. The Django `SECRET_KEY` can be anything, as long as it is kept secret.
 
 ## Run
 
