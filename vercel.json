@@ -11,5 +11,8 @@
             "src": "/(.*)",
             "dest": "agrispeak/wsgi.py"
         }
-    ]
+    ],
+    "engines": {
+        "node": "18"
+    }
 }
