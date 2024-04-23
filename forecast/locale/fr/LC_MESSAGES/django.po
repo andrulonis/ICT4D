@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-23 21:14+0000\n"
+"POT-Creation-Date: 2024-04-23 21:33+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,7 +26,8 @@ msgstr ""
 
 #: forecast/templates/error.xml:7
 msgid "An internal server error occurred. Please try again later."
-msgstr "Une erreur interne du serveur s'est produite. Veuillez réessayer plus tard."
+msgstr ""
+"Une erreur interne du serveur s'est produite. Veuillez réessayer plus tard."
 
 #: forecast/templates/index.xml:12
 msgid "You've reached AgriSpeak, a service for rain prediction in the Sahel."
@@ -57,6 +58,18 @@ msgstr "Précipitations prévues dans les prochaines 24 heures"
 msgid "Rainfall in the past 24 hours"
 msgstr "Précipitations au cours des dernières 24 heures"
 
+#: forecast/templates/index.xml:53
+msgid "Estimated duration of current rainfall"
+msgstr "Durée estimée des précipitations actuelles"
+
+#: forecast/templates/index.xml:55
+msgid ""
+"It is not currently raining, so it is not possible to estimate the duration "
+"of rainfall."
+msgstr ""
+"Il ne pleut pas actuellement, il n'est donc pas possible d'estimer la durée "
+"des précipitations."
+
 #: forecast/views.py:20 forecast/views.py:30
 msgid "None"
 msgstr "Aucune"
@@ -84,3 +97,10 @@ msgstr "Extrême"
 #: forecast/views.py:26
 msgid "Very extreme"
 msgstr "Très extrême"
+
+#: forecast/views.py:123
+#, python-format
+msgid "%(count)d hour"
+msgid_plural "%(count)d hours"
+msgstr[0] "%(count)d heure"
+msgstr[1] "%(count)d heures"

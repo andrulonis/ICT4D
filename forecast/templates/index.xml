@@ -49,7 +49,11 @@
     <form id="form3">
         <block>
             <prompt>
-                Estimated duration of rainfall: 2 days.
+                {% if rainfall_duration %}
+                {% translate "Estimated duration of current rainfall" %}: {{ rainfall_duration }}.
+                {% else %}
+                {% translate "It is not currently raining, so it is not possible to estimate the duration of rainfall." %}
+                {% endif %}
             </prompt>
             <goto next="#main"/>
         </block>
