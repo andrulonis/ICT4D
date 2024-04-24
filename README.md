@@ -49,7 +49,21 @@ pip3 install -r requirements.txt
 
 #### Environment variables
 
-The application requires multiple environment variables to be set in order to function properly. Make a copy of `.env.template` and name it `.env`. Add the required values where required. The Django `SECRET_KEY` can be anything, as long as it is kept secret.
+The application requires multiple environment variables to be set in order to function properly. Make a copy of `.env.template` and name it `.env`. Add the required values where required. The below table explains what the values mean. All values are required.
+
+|Environment variable|Description|
+|--------------------|-----------|
+| `WEATHER_API_KEY`           | weatherapi.com API key. Make an account and provide the API key here |
+| `SECRET_KEY`                | Used by Django for security purposes. Can be anything, as long as it is kept secret. |
+| `AWS_STORAGE_BUCKET_NAME`   | The name of your AWS S3 bucket. Cloudflare R2 is also supported. |
+| `AWS_S3_ENDPOINT_URL`       | The URL of the bucket, provided by S3/R2. |
+| `AWS_S3_ACCESS_KEY_ID`      |  The ID of the access key, provided by S3/R2. |
+| `AWS_S3_SECRET_ACCESS_KEY`  | The access key for the bucket, be sure to keep this a secret. Provided by S3/R2. |
+| `POSTGRES_DB`               | This project assumes there already exists a running postgres database somewhere, provide the name of the database here. |
+| `POSTRGRES_USER`            | The username of a postgres user. |
+| `POSTGRES_PASSWORD`         | The password of the above user. Be sure to keep this secret. |
+| `POSTGRES_HOST`             | The hostname of the connection to the database. If hosted locally this will be `localhost` or similar. |
+| `POSTGRES_PORT`             | The port of the connection to the database. |
 
 #### Run
 
