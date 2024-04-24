@@ -85,13 +85,27 @@ python3 manage.py runserver
 
 ## Usage
 
-The API exposes one endpoint at the root URL that returns the VXML file. To view it, make a GET request to `http://<host>:<port>/`. This will redirect you to the English version of the service. 
+The API exposes one endpoint that returns the main VXML file. To view it, make a GET request to `http://<host>:<port>/forecast`. This will redirect you to the English version of the service. 
 
 **Other languages**
 
-Navigate to `http://<host>:<port>/<lang>` to retrieve the VXML file in other languages, where `<lang>` is the requested language. Please consult the below table for which value to use in place of `<lang>`:
+Navigate to `http://<host>:<port>/<lang>/forecast` to retrieve the VXML file in other languages, where `<lang>` is the requested language. Please consult the below table for which value to use in place of `<lang>`:
 
 |Language|`<lang>`|
 |--------|--------|
 |English (default)|`en`|
 |French|`fr`|
+
+**Submitting feedback**
+In a call flow where the caller types '4', indicating they want to submit feedback, their recorded feedback will be sent to the service with a POST request to `http://<host>:<port>/<lang>/feedback`. In this case, `<lang>` is determined by the original language of their call. For example, if the user called a number that used the VXML pointing to `http://<host>:<port>/en/forecast`, then their feedback is submitted to `http://<host>:<port>/en/feedback`.
+
+If you want to test this endpoint manually, make a POST request to `http://<host>:<port>/<lang>/feedback` with a wav file attached under the `msg` body parameter.
+
+**Viewing and deleting feedback**
+Visit `http://<host>:<port>/` to reach the admin panel where, after logging in, you can see all the submitted feedbacks and their languages, play back the audio, and delete them if they have been processed.
+
+*Note:* You need to have an admin account to login here. To create one, run the following:
+
+```sh
+python manage.py createsuperuser
+```
