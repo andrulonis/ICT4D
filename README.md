@@ -63,6 +63,16 @@ The table below explains what the environment variable values mean. All are requ
 | `POSTGRES_HOST`             | The hostname of the connection to the database. If hosted locally this will be `localhost` or similar. |
 | `POSTGRES_PORT`             | The port of the connection to the database. |
 
+### Perform database migrations
+
+Run the database migrations to make your Postgres instance ready for running AgriSpeak.
+
+```sh
+python3 manage.py migrate
+```
+
+If the environment variables were correctly set, and the instance is running, then the above will perform all the required migrations on the database.
+This will create the required tables for AgriSpeak to function.
 
 ### Run
 
