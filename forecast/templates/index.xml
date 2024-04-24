@@ -58,17 +58,20 @@
             <goto next="#main"/>
         </block>
     </form>
-
     <form id="form4">
-        <block>
-            <prompt>
-                Please state your feedback.
+        <record name="msg" beep="true" maxtime="600s" finalsilence="4000ms" dtmfterm="true" type="audio/x-wav">
+            <prompt timeout="5s">
+                {% translate "Please record your feedback message after the beep." %}
             </prompt>
-            <break time="4000ms"/>
+            <noinput>
+                {% translate "I did not hear anything, please try again." %}
+            </noinput>
+        </record>
+        <filled>
             <prompt>
-                Thank you.
+                {% translate "Thank you for your feedback. It has been recorded successfully." %}
             </prompt>
-            <goto next="#main"/>
-        </block>
+            <submit next="{{ FEEDBACK_URI }}" enctype="multipart/form-data" method="post" namelist="msg"/>
+        </filled>
     </form>
 </vxml>

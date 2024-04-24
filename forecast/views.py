@@ -1,14 +1,14 @@
 from django.http import HttpResponse
 from django.shortcuts import render
-
 from django.utils.translation import gettext as _
+from django.utils.translation import ngettext
 from django.utils.translation import get_language
 from django.conf import settings
 
 import requests
 from datetime import datetime, timedelta
 import math
-from pprint import pprint
+from functools import reduce
 
 WEATHER_API_BASE_URL='http://api.weatherapi.com/v1/'
 LOCATION = 'Burkina Faso'
@@ -33,8 +33,11 @@ def get_precipitation_intensity(hourlyprecip_next_24_hrs):
         if max(hourlyprecip_next_24_hrs) < threshold:
             return intensity
 
-def get_hourly_rainfall(daily_data):
+def get_first_day_hourly_rainfall(daily_data):
     return daily_data[0]['hourlyprecip_mm']
+
+def get_all_hourly_rainfall(daily_data):
+    return reduce(lambda x, y: x + y, [day['hourlyprecip_mm'] for day in daily_data])
 
 def get_forecast_data():
     weather_api_forecast_request = requests.get(WEATHER_API_BASE_URL + 'forecast.json', params={
@@ -87,6 +90,13 @@ def get_history_data(local_time):
         'hourlyprecip_mm': [hour['precip_mm'] for hour in history_data['forecast']['forecastday'][0]['hour']]
     }]
 
+def get_rainfall_duration(hourly_rainfall):
+    for i, rainfall in enumerate(hourly_rainfall):
+        if not rainfall:
+            return i
+
+    return len(hourly_rainfall)
+
 def index(request):
     if get_language() not in IMPLEMENTED_LANGUAGES:
         return render(request, 'language_not_available.xml', content_type='text/xml', status=404)
@@ -96,8 +106,8 @@ def index(request):
         history_data = get_history_data(local_time)
         
         # Previous 24 hours rainfall intensity
-        rainfall_today            = get_hourly_rainfall(forecast_data)
-        rainfall_yesterday        = get_hourly_rainfall(history_data)
+        rainfall_today            = get_first_day_hourly_rainfall(forecast_data)
+        rainfall_yesterday        = get_first_day_hourly_rainfall(history_data)
         rainfall_past_24hrs       = rainfall_yesterday[local_time.hour:] + rainfall_today[:local_time.hour]
         history_intensity_rating  = get_precipitation_intensity(rainfall_past_24hrs)
 
@@ -105,11 +115,21 @@ def index(request):
         rainfall_next_24hrs       = get_rainfall_next_24hrs(local_time, forecast_data)
         forecast_intensity_rating = get_precipitation_intensity(rainfall_next_24hrs)
 
-        print(rainfall_past_24hrs, rainfall_next_24hrs)
+        # Rainfall duration
+        hourly_rainfall_from_now = get_all_hourly_rainfall(forecast_data)[local_time.hour:]
+        rainfall_duration_hours = get_rainfall_duration(hourly_rainfall_from_now)
+
+        rainfall_duration_friendly_text = ngettext(
+            "%(count)d hour",
+            "%(count)d hours",
+            rainfall_duration_hours
+        ) % { 'count': rainfall_duration_hours }
     except Exception as e:
         return render(request, 'error.xml', content_type='text/xml', status=500)
 
     return render(request, 'index.xml', {
         'rainfall_intensity_today': forecast_intensity_rating,
-        'rainfall_intensity_yesterday': history_intensity_rating
+        'rainfall_intensity_yesterday': history_intensity_rating,
+        'rainfall_duration': rainfall_duration_friendly_text,
+        'FEEDBACK_URI': f'{settings.HOST}/{get_language()}/feedback'
     }, content_type='text/xml')
