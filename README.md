@@ -15,6 +15,13 @@ AgriSpeak allows users to call a phone number and receive rainfall forecast info
 
 TODO: @Daanvduin
 
+## Prerequisites
+
+You will need:
+- A weatherapi.com account with a generated API key.
+- An Amazon S3, Cloudflare R2 or similar file storage solution.
+- A running PostgreSQL instance.
+
 ## Deploy
 
 ### One click Vercel deployment
