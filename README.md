@@ -97,11 +97,13 @@ Navigate to `http://<host>:<port>/<lang>/forecast` to retrieve the VXML file in 
 |French|`fr`|
 
 **Submitting feedback**
+
 In a call flow where the caller types '4', indicating they want to submit feedback, their recorded feedback will be sent to the service with a POST request to `http://<host>:<port>/<lang>/feedback`. In this case, `<lang>` is determined by the original language of their call. For example, if the user called a number that used the VXML pointing to `http://<host>:<port>/en/forecast`, then their feedback is submitted to `http://<host>:<port>/en/feedback`.
 
 If you want to test this endpoint manually, make a POST request to `http://<host>:<port>/<lang>/feedback` with a wav file attached under the `msg` body parameter.
 
 **Viewing and deleting feedback**
+
 Visit `http://<host>:<port>/` to reach the admin panel where, after logging in, you can see all the submitted feedbacks and their languages, play back the audio, and delete them if they have been processed.
 
 *Note:* You need to have an admin account to login here. To create one, run the following:
