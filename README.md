@@ -46,8 +46,8 @@ pip3 install -r requirements.txt
 
 ### Enter environment variables
 
-The application requires multiple environment variables to be set in order to function properly. Make a copy of `.env.template` and name it `.env`. 
-Add the required values where required. The table below explains what the environment variable values mean. All are required.
+The application requires multiple environment variables to be set in order to function properly. Make a copy of `.env.template` and name it `.env` and add your values.
+The table below explains what the environment variable values mean. All are required.
 
 |Environment variable|Description|
 |--------------------|-----------|
