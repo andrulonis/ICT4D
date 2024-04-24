@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-23 21:33+0000\n"
+"POT-Creation-Date: 2024-04-24 21:52+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -70,35 +70,47 @@ msgstr ""
 "Il ne pleut pas actuellement, il n'est donc pas possible d'estimer la durée "
 "des précipitations."
 
-#: forecast/views.py:20 forecast/views.py:30
+#: forecast/templates/index.xml:64
+msgid "Please record your feedback message after the beep."
+msgstr "Veuillez enregistrer votre message de retour après le bip."
+
+#: forecast/templates/index.xml:67
+msgid "I did not hear anything, please try again."
+msgstr "Je n'ai rien entendu, veuillez réessayer."
+
+#: forecast/templates/index.xml:72
+msgid "Thank you for your feedback. It has been recorded successfully."
+msgstr "Merci pour votre avis. Il a été enregistré avec succès."
+
+#: forecast/views.py:19 forecast/views.py:29
 msgid "None"
 msgstr "Aucune"
 
-#: forecast/views.py:21
+#: forecast/views.py:20
 msgid "Weak"
 msgstr "Faible"
 
-#: forecast/views.py:22
+#: forecast/views.py:21
 msgid "Moderate"
 msgstr "Modérée"
 
-#: forecast/views.py:23
+#: forecast/views.py:22
 msgid "Heavy"
 msgstr "Forte"
 
-#: forecast/views.py:24
+#: forecast/views.py:23
 msgid "Very heavy"
 msgstr "Très forte"
 
-#: forecast/views.py:25
+#: forecast/views.py:24
 msgid "Extreme"
 msgstr "Extrême"
 
-#: forecast/views.py:26
+#: forecast/views.py:25
 msgid "Very extreme"
 msgstr "Très extrême"
 
-#: forecast/views.py:123
+#: forecast/views.py:122
 #, python-format
 msgid "%(count)d hour"
 msgid_plural "%(count)d hours"
