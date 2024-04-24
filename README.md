@@ -9,7 +9,7 @@ AgriSpeak allows users to call a phone number and receive rainfall forecast info
 - [x] Information about the previous day's rainfall 
 - [x] Estimated remaining duration of current rainfall
 - [x] Multiple languages
-- [ ] User feedback system
+- [x] User feedback system
 
 ## System architecture
 
