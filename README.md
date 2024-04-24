@@ -62,6 +62,7 @@ The table below explains what the environment variable values mean. All are requ
 | `POSTGRES_PASSWORD`         | The password of the above user. Be sure to keep this secret. |
 | `POSTGRES_HOST`             | The hostname of the connection to the database. If hosted locally this will be `localhost` or similar. |
 | `POSTGRES_PORT`             | The port of the connection to the database. |
+| `HOST`                      | The domain name or IP where the service will be accessible. This is needed for the feedback submission flow where the caller will make a POST request to send their recorded feedback to the server. We need the hostname to know where to insert into the VXML file the destination of the request. |
 
 ### Perform database migrations
 
