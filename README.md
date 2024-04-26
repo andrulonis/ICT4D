@@ -13,7 +13,7 @@ AgriSpeak allows users to call a phone number and receive rainfall forecast info
 
 ## System architecture
 
-TODO: @Daanvduin
+![](./infra.svg)
 
 ## Prerequisites
 
