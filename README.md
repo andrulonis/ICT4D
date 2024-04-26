@@ -11,6 +11,14 @@ AgriSpeak allows users to call a phone number and receive rainfall forecast info
 - [x] Multiple languages
 - [x] User feedback system
 
+When a user calls a number that uses AgriSpeak, they are presented four options:
+1. Get information about the rainfall in the past 24 hours.
+2. Get information about the rainfall in the next 24 hours.
+3. Get the duration of the current rainfall, if there is any. This was found to be an important factor since rainfall often lasts for long periods at a time, as noted by our contact person.
+4. Submit feedback through voice.
+
+Operators can log into the admin panel to listen to the feedback submitted through option 4 and delete them once they are processed.
+
 ## System architecture
 
 ![](./infra.svg)
