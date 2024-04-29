@@ -10,6 +10,7 @@ AgriSpeak allows users to call a phone number and receive rainfall forecast info
 - [x] Estimated remaining duration of current rainfall
 - [x] Multiple languages
 - [x] User feedback system
+- [ ] Extreme weather warning
 
 When a user calls a number that uses AgriSpeak, they are presented four options:
 1. Get information about the rainfall in the past 24 hours.
