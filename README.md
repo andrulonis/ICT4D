@@ -120,3 +120,12 @@ Visit `http://<host>:<port>/` to reach the admin panel where, after logging in, 
 ```sh
 python manage.py createsuperuser
 ```
+
+**Errors**
+
+When attempting to retrieve forecast information at the `/forecast` endpoint, the following errors can occur:
+
+|Error|Result|
+|-----|------|
+| A language that is not (yet) implemented is entered in the `<lang>` field in the endpioint URL. | A HTTP `404` error is returned accompanied by a [language error XML file](./forecast/templates/language_not_available.xml). |
+| The weather API key is not properly configured, or the the weather service (currently ww.weatherapi.com) is not available. | A HTTP `500` error is returned accompanied by an [error XML file](./forecast/templates/error.xml).  |
