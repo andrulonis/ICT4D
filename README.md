@@ -10,10 +10,19 @@ AgriSpeak allows users to call a phone number and receive rainfall forecast info
 - [x] Estimated remaining duration of current rainfall
 - [x] Multiple languages
 - [x] User feedback system
+- [ ] Extreme weather warning
+
+When a user calls a number that uses AgriSpeak, they are presented four options:
+1. Get information about the rainfall in the past 24 hours.
+2. Get information about the rainfall in the next 24 hours.
+3. Get the duration of the current rainfall, if there is any. This was found to be an important factor since rainfall often lasts for long periods at a time, as noted by our contact person.
+4. Submit feedback through voice.
+
+Operators can log into the admin panel to listen to the feedback submitted through option 4 and delete them once they are processed.
 
 ## System architecture
 
-TODO: @Daanvduin
+![](./infra.svg)
 
 ## Prerequisites
 
@@ -111,3 +120,12 @@ Visit `http://<host>:<port>/` to reach the admin panel where, after logging in, 
 ```sh
 python manage.py createsuperuser
 ```
+
+**Errors**
+
+When attempting to retrieve forecast information at the `/forecast` endpoint, the following errors can occur:
+
+|Error|Result|
+|-----|------|
+| A language that is not (yet) implemented is entered in the `<lang>` field in the endpioint URL. | A HTTP `404` error is returned accompanied by a [language error XML file](./forecast/templates/language_not_available.xml). |
+| The weather API key is not properly configured, or the the weather service (currently ww.weatherapi.com) is not available. | A HTTP `500` error is returned accompanied by an [error XML file](./forecast/templates/error.xml).  |
