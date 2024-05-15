@@ -15,6 +15,16 @@
         </block>
     </form>
 
+    {% if alerts %}
+    <form id="alerts">
+        <block>
+            {% autoescape off %}
+            <prompt> {{ alerts }} </prompt>
+            {% endautoescape %}
+        </block>
+    </form>
+    {% endif %}
+
     <menu id="main" dtmf="true">
         <prompt>
             {% translate "For daily forecast, press 1." %}

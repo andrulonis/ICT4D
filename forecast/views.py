@@ -45,6 +45,7 @@ def get_forecast_data():
         'lang': get_language(),
         'q': LOCATION,
         'days': 7,
+        'alerts': 'yes',
     })
 
     if not weather_api_forecast_request.ok:
@@ -57,15 +58,12 @@ def get_forecast_data():
 
     return local_time, [{
             'date': day['date'],
-            # 'totalprecip_mm': day['day']['totalprecip_mm'],
             'hourlyprecip_mm': [hour['precip_mm'] for hour in day['hour']],
-            # 'hourly_chance_of_rain': [hour['chance_of_rain'] for hour in day['hour']],
-            # 'will_it_rain': day['day']['daily_will_it_rain'],
-            # 'daily_code': day['day']['condition']['code'],
-            # 'hourly_code': [hour['condition']['code'] for hour in day['hour']],
-            # 'daily_text': day['day']['condition']['text'],
-            # 'hourly_text': [hour['condition']['text'] for hour in day['hour']]
-        } for day in forecast_by_day]
+        } for day in forecast_by_day], [{
+            'headline': alert['headline'],
+            'severity': alert['severity'],
+        } for alert in forecast_data['alerts']['alert']]    
+    
 
 def get_rainfall_next_24hrs(local_time, precipation_forecast_data):
     hourlyprecip_today, hourlyprecip_tomorrow = precipation_forecast_data[0]['hourlyprecip_mm'], precipation_forecast_data[1]['hourlyprecip_mm']
@@ -102,7 +100,7 @@ def index(request):
         return render(request, 'language_not_available.xml', content_type='text/xml', status=404)
 
     try:
-        local_time, forecast_data = get_forecast_data()
+        local_time, forecast_data, alert_data = get_forecast_data()
         history_data = get_history_data(local_time)
         
         # Previous 24 hours rainfall intensity
@@ -118,12 +116,15 @@ def index(request):
         # Rainfall duration
         hourly_rainfall_from_now = get_all_hourly_rainfall(forecast_data)[local_time.hour:]
         rainfall_duration_hours = get_rainfall_duration(hourly_rainfall_from_now)
-
         rainfall_duration_friendly_text = ngettext(
             "%(count)d hour",
             "%(count)d hours",
             rainfall_duration_hours
         ) % { 'count': rainfall_duration_hours }
+
+        # Alerts
+        alerts_text = f'There are currently {len(alert_data)} alerts for intense weather.<break/>' \
+            + '<break/>'.join(f"Alert {i + 1} with severity '{alert['severity']}': <break/> {alert['headline']}." for i, alert in enumerate(alert_data)) if alert_data else None 
     except Exception as e:
         return render(request, 'error.xml', content_type='text/xml', status=500)
 
@@ -131,5 +132,7 @@ def index(request):
         'rainfall_intensity_today': forecast_intensity_rating,
         'rainfall_intensity_yesterday': history_intensity_rating,
         'rainfall_duration': rainfall_duration_friendly_text,
-        'FEEDBACK_URI': f'{settings.HOST}/{get_language()}/feedback'
+        'FEEDBACK_URI': f'{settings.HOST}/{get_language()}/feedback',
+        'alerts': alerts_text
     }, content_type='text/xml')
+
