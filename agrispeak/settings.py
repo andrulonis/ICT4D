@@ -143,6 +143,7 @@ AWS_S3_ENDPOINT_URL = os.environ['AWS_S3_ENDPOINT_URL']
 AWS_S3_ACCESS_KEY_ID = os.environ['AWS_S3_ACCESS_KEY_ID']
 AWS_S3_SECRET_ACCESS_KEY = os.environ['AWS_S3_SECRET_ACCESS_KEY']
 AWS_STORAGE_BUCKET_NAME = os.environ['AWS_STORAGE_BUCKET_NAME']
+AWS_S3_REGION_NAME = 'auto'
 
 # Use it for static files as well as the feedback recordings
 STORAGES = {
